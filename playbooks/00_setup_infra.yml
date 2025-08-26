@@ -37,6 +37,20 @@
     wazuh_indexer_user: "admin"
     wazuh_indexer_password: "admin"
   
+  pre_tasks:
+    - name: Ensure indexer.pem and key are present and readable for wazuh-indexer
+      file:
+        path: "/etc/wazuh-indexer/certs/{{ item }}"
+        owner: wazuh-indexer
+        group: wazuh-indexer
+        mode: '0440'
+      loop:
+        - indexer.pem
+        - indexer-key.pem
+        - root-ca.pem
+        - admin.pem
+        - admin-key.pem
+      when: wazuh_ssl_enabled | default(true)
   roles:
     - common
     - wazuh_indexer
