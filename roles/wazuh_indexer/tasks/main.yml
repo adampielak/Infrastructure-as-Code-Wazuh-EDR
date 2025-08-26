@@ -90,6 +90,27 @@
     path: /tmp/wazuh-certificates.tar
     state: absent
 
+# --- Prepare certs for cluster initialization ---
+- name: Ensure /etc/wazuh-certificates directory exists
+  file:
+    path: /etc/wazuh-certificates
+    state: directory
+    owner: wazuh-indexer
+    group: wazuh-indexer
+    mode: '0755'
+
+- name: Copy required certs for indexer initializer
+  copy:
+    src: "/etc/wazuh-indexer/certs/{{ item }}"
+    dest: "/etc/wazuh-certificates/{{ item }}"
+    owner: wazuh-indexer
+    group: wazuh-indexer
+    mode: '0400'
+  loop:
+    - admin.pem
+    - admin-key.pem
+    - root-ca.pem
+
 # --- Cluster initialization ---
 - name: Initialize Wazuh Indexer cluster
   command: /usr/share/wazuh-indexer/bin/indexer-security-init.sh
