@@ -55,7 +55,7 @@
     mode: '0644'
 
 - name: Generate Wazuh certificates
-  command: bash /tmp/wazuh-certs-tool.sh -A -i /tmp/config.yml
+  shell: bash /tmp/wazuh-certs-tool.sh -A -i /tmp/config.yml
   args:
     chdir: /tmp
 
