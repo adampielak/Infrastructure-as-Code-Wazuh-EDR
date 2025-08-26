@@ -60,7 +60,7 @@
     chdir: /tmp
 
 - name: Generate Wazuh certificates
-  shell: bash /tmp/wazuh-certs-tool.sh -A -i "/tmp/config.yml"
+  shell: bash /tmp/wazuh-certs-tool.sh -A -i /tmp/config.yml
   args:
     chdir: /tmp
 
