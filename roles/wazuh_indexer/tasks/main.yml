@@ -54,8 +54,13 @@
     dest: /tmp/config.yml
     mode: '0644'
 
+- name: Debug config.yml presence and permissions
+  shell: ls -l /tmp/config.yml && cat /tmp/config.yml
+  args:
+    chdir: /tmp
+
 - name: Generate Wazuh certificates
-  shell: bash /tmp/wazuh-certs-tool.sh -A -i /tmp/config.yml
+  shell: bash /tmp/wazuh-certs-tool.sh -A -i "/tmp/config.yml"
   args:
     chdir: /tmp
 
