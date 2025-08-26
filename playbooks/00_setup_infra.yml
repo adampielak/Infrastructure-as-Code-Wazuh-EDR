@@ -38,6 +38,15 @@
     wazuh_indexer_password: "admin"
   
   pre_tasks:
+    - name: Debug /etc/wazuh-indexer/certs contents and permissions
+      shell: ls -l /etc/wazuh-indexer/certs
+      register: certs_dir_listing
+      ignore_errors: yes
+
+    - name: Show certs directory listing
+      debug:
+        var: certs_dir_listing.stdout_lines
+
     - name: Ensure indexer.pem and key are present and readable for wazuh-indexer
       file:
         path: "/etc/wazuh-indexer/certs/{{ item }}"
