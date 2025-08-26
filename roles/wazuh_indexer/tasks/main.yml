@@ -41,6 +41,11 @@
     state: present
     update_cache: yes
 
+- name: Remove existing wazuh-certificates directory if present
+  file:
+    path: /tmp/wazuh-certificates
+    state: absent
+
 # --- Certificate Generation (Wazuh Certs Tool) ---
 - name: Download wazuh-certs-tool.sh
   get_url:
