@@ -106,6 +106,7 @@
     owner: wazuh-indexer
     group: wazuh-indexer
     mode: '0400'
+    remote_src: yes
   loop:
     - admin.pem
     - admin-key.pem
