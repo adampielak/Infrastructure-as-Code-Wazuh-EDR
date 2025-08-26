@@ -117,6 +117,21 @@
     - admin-key.pem
     - root-ca.pem
 
+# --- Ensure wazuh-indexer is running and OpenSearch is available ---
+- name: Ensure wazuh-indexer service is started
+  service:
+    name: wazuh-indexer
+    state: started
+    enabled: yes
+
+- name: Wait for OpenSearch to be available on port 9200
+  wait_for:
+    host: 127.0.0.1
+    port: 9200
+    delay: 5
+    timeout: 120
+    state: started
+
 # --- Debug certs directory before cluster initialization ---
 - name: Debug /etc/wazuh-certificates contents and permissions
   shell: ls -l /etc/wazuh-certificates
